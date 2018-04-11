@@ -5,6 +5,7 @@ import java.io.IOException;
 
 public class FileTest {
 
+	
 	public static void main(String[] args) {
         // 根据系统的实际情况选择目录分隔符（windows下是，linux下是/）
         String separator = File.separator;
