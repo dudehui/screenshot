@@ -46,8 +46,9 @@ public class Cdp4jTest {
 				Session session = factory.create()) {
 			session.navigate(
 //					"https://www.eastbay.com/product/model:200618/sku:Q18127/adidas-originals-roller-crew-socks-mens/black/grey/");
-		"https://www.guazi.com/jn/e86fcec5eb4064a2x.htm#fr_page=list&fr_pos=city&fr_no=0");
-			session.wait(30000);
+		"http://www.baidu.com/");
+			
+			//session.wait(30000);
 			session.waitDocumentReady();
 			// activate the tab/session before capturing the screenshot
 			session.activate();

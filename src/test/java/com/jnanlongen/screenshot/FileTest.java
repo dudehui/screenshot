@@ -2,6 +2,9 @@ package com.jnanlongen.screenshot;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
+
+import org.junit.Test;
 
 public class FileTest {
 
@@ -34,6 +37,31 @@ public class FileTest {
         }
         
     }
+	
+	
+	@Test
+	public void testNumber() {
+	    long start = System.currentTimeMillis();  
+        Random rd = new Random();  
+        String[] radmon = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };  
+        // for(int j = 0; j < 100; j++) {  
+        StringBuffer sb = new StringBuffer();  
+  
+        for (int i = 0; i < 9; i++) {  
+            String s = radmon[rd.nextInt(10)];  //0-9的随机数
+            sb.append(s);  
+        }  
+        System.out.println(sb);  
+        // System.out.println((int)((Math.random()*9+1)*100000));  
+        // }  
+        long end = System.currentTimeMillis();  
+        //System.out.println(end - start + ";start:" + start + ";end:" + end);  
+        //System.exit(0);  
+        /* 
+         * 952127393 
+         * 0;start:1491460840965;end:1491460840965 
+         * */  
+	}
  
 	
 }

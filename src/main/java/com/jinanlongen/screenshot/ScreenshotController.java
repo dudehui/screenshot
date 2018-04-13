@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jinanlongen.screenshot.utils.FileReadUtil;
+import com.jinanlongen.screenshot.utils.ScreenShotQueueUtil;
 import com.jinanlongen.screenshot.utils.ScreenShotThread;
 
 import io.webfolder.cdp.Launcher;
@@ -237,5 +239,66 @@ public class ScreenshotController {
         return "花费时间：" + (end - start) / 1000 + "秒" + ", 磁盘路径："+dirpath;
     }
 
+    
+    
+    /**JAVA多线程+队列，测试 cd4j 屏幕截图
+     * 测试网址：
+     * 读取 file.txt 中的url并截图
+	   ######################################测试：http://localhost:8081/test
+	   分析：一台电脑只有一个浏览器，不能使用单独的多线程，用队列+多线程
+     * @return
+     */
+    @RequestMapping("/testByqueue")
+    @ResponseBody
+    public String screenshotByQueue(HttpServletRequest request) {
+    	long start = System.currentTimeMillis();
+        System.out.println("开始时间：" + start);  
+        //-------1.0------按照日期来创建dir
+        //String rootDir = request.getServletContext().getRealPath("/");//获取项目所在服务器的全路径
+        String rootDir = "pic_screenshot";//服务器同级目录下的XXX
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dirname = sdf.format(new Date());//磁盘文件名使用 日期
+        
+        String dirpath = rootDir + File.separator + dirname;//构造的磁盘路径
+        File rootFile = new File(dirpath); 
+        if(!rootFile.exists()){  //如果图片需要的磁盘目录不存在就创建这个目录
+        	rootFile.mkdirs();  
+	    }  
+        //-------------按照日期来创建dir
+        //图片存放在 磁盘位置 服务器根目录下，按照日期区分， 文件夹名例如 2018-04-10-18-23-01
+        //C:\Users\Administrator\AppData\Local\Temp\tomcat-docbase.4731566088696246055.9081 下的 2018-04-10-18-23-01
+        //程序 当前路径下的 XXXX
+        
+        //Path path = Paths.get("c:\\snapshot1");//磁盘位置 String dir = "c:/snapshot1/";
+        
+        //-----2.0----调用谷歌浏览器截图--------------------------------
+        // 2.1 读取 file.txt中的url 放到  队列线程池、JAVA集合中       
+           // 根据系统的实际情况选择目录分隔符（windows下是，linux下是/）
+        String separator = File.separator;
+        String directory = "url" + separator + "file.txt";//url文件所在的目录
+        
+        Map<String, List<String>> map = FileReadUtil.readFileByLines(directory);        
+
+        ArrayList<String> allurlList= (ArrayList<String>) map.get("allurlList"); 
+        
+        // 2.2 创建线程，依次取出集合对象，循环执行截图功能, 截取一个休眠 30秒 
+              //####### 根据需要对网站url 进行分类依次创建多个线程对象处理请求   
+       //################################################ 
+      Iterator<String> it=allurlList.iterator();
+      while(it.hasNext()){//入队        
+      	String url = it.next();
+      	String name = ScreenShotQueueUtil.getImageName();
+      	ScreenShotQueueUtil.setBefore(name, url);
+      }        
+             
+       ScreenShotQueueUtil.setRun("c:/snapshot/");//截图
+       ScreenShotQueueUtil.setRun(dirpath);//截图
+      //################################################## 
+        long end = System.currentTimeMillis();
+        System.out.println("结束时间：" + end);
+        System.out.println("花费时间：" + (end - start) / 1000 + "秒");
+        return "花费时间：" + (end - start) / 1000 + "秒" + ", 磁盘路径："+dirpath;
+    }
     
 }
