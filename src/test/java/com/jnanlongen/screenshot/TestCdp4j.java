@@ -28,13 +28,14 @@ public class TestCdp4j {
         Launcher launcher = new Launcher();
 
         Path file = createTempFile("screenshot", ".png");
-
+//https://www.eastbay.com/product/model:200618/sku:Q18127/adidas-originals-roller-crew-socks-mens/black/grey/
         try (SessionFactory factory = launcher.launch();
                             Session session = factory.create()) {
 //            session.navigate("https://news.ycombinator.com");//
 //        	session.navigate("https://blog.csdn.net/chenleixing/article/details/44816629");//
-        	session.navigate("https://www.eastbay.com/product/model:200618/sku:Q18127/adidas-originals-roller-crew-socks-mens/black/grey");//
-        	
+//        	session.navigate("https://www.eastbay.com/product/model:200618/sku:Q18127/adidas-originals-roller-crew-socks-mens/black/grey");//
+        	 session.navigate("https://www.eastbay.com/product/model:200618/sku:Q18127/adidas-originals-roller-crew-socks-mens/black/grey/");//
+        	session.wait(30000);
             session.waitDocumentReady();
             // activate the tab/session before capturing the screenshot
             session.activate();

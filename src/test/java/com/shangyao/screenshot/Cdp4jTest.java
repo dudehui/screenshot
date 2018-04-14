@@ -45,10 +45,10 @@ public class Cdp4jTest {
 		try (SessionFactory factory = launcher.launch(path); 
 				Session session = factory.create()) {
 			session.navigate(
-//					"https://www.eastbay.com/product/model:200618/sku:Q18127/adidas-originals-roller-crew-socks-mens/black/grey/");
-		"http://www.baidu.com/");
+					"https://www.eastbay.com/product/model:200618/sku:Q18127/adidas-originals-roller-crew-socks-mens/black/grey/");
+//		"http://www.baidu.com/");
 			
-			//session.wait(30000);
+			session.wait(30000);
 			session.waitDocumentReady();
 			// activate the tab/session before capturing the screenshot
 			session.activate();

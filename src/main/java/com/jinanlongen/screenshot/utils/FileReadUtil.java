@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class FileReadUtil {
 	
@@ -35,33 +36,41 @@ public class FileReadUtil {
             while ((tempString = reader.readLine()) != null) {
                 // 显示行号
                 //System.out.println("line " + line + ": " + tempString);
-                allurlList.add(tempString);//将url 放入 list
-                //对 tempString 进行截取字符串，根据site划入不同的 list
-                	
-                String [] sub_url_array = tempString.split("[/ : . - _ # %]");     	
-                sub_url_array = removeArrayEmptyTextBackNewArray(sub_url_array);
-	     		String siteName = sub_url_array[2];  //----_获取了站点名
-        	       //System.out.println("siteName " + siteName);
-        	      	    /**
-        	      	     * 站点名称包括：
-        					zappos
-        					eastbay
-        					finishline
-        					..............
-        	      	     */
-        	      	    switch (siteName) {
-        				case "zappos":
-        					zapposList.add(tempString);
-        					break;
-                        case "eastbay":
-                        	eastbayList.add(tempString);
-        					break;
-                        case "finishline":
-                        	finishlineList.add(tempString);
-        					break;
-        				default:        					
-        					break;
-        				}
+            	//判断是否为合法的 http URL 
+            	  Pattern pattern = Pattern  
+                          .compile("^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+$");  
+                boolean flag = pattern.matcher(tempString).matches();
+               if(flag) {
+            	   allurlList.add(tempString);//将url 放入 list
+                   //对 tempString 进行截取字符串，根据site划入不同的 list                	
+                   //String [] sub_url_array = tempString.split("[/ : . - _ # %]");     	
+                   //sub_url_array = removeArrayEmptyTextBackNewArray(sub_url_array);
+//                   System.out.println("#####:"+tempString);
+//   	     		String siteName = sub_url_array[2];  //----_获取了站点名
+//           	       //System.out.println("siteName " + siteName);
+//           	      	    /**
+//           	      	     * 站点名称包括：
+//           					zappos
+//           					eastbay
+//           					finishline
+//           					..............
+//           	      	     */
+//           	      	    switch (siteName) {
+//           				case "zappos":
+//           					zapposList.add(tempString);
+//           					break;
+//                           case "eastbay":
+//                           	eastbayList.add(tempString);
+//           					break;
+//                           case "finishline":
+//                           	finishlineList.add(tempString);
+//           					break;
+//           				default:        					
+//           					break;
+//           				}
+               }else {
+            	   //.error("data error: url is not allowed");
+               }
         	                          
                 line++;
             }

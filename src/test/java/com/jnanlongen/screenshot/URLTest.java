@@ -3,6 +3,7 @@ package com.jnanlongen.screenshot;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 
@@ -27,9 +28,10 @@ public class URLTest {
 //			https://www.zappos.com/p/nike-cotton-cushion-crew-with-moisture-management-3-pair-pack-black-white/product/8068305/color/151
 //			https://www.finishline.com/store/product/womens-puma-popcat-slide-sandals/prod2772299?styleId=36384702&colorId=002
 //			https://support.mozilla.org/zh-CN/kb/Firefox%20%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8
-//			https://www.baidu.com
-		String url = "https://www.finishline.com/store/product/womens-puma-popcat-slide-sandals/prod2772299?styleId=36384702&colorId=002";   
-         
+//			http://www.baidu.com
+		
+//		String url = "https://www.finishline.com/store/product/womens-puma-popcat-slide-sandals/prod2772299?styleId=36384702&colorId=002";   
+        String url = "http://www.baidu.com"; 
 //		 Java 使用split函数分割url成为单词
 //		    String url = "https://sports.sina.com.cn/";  
 		    String [] sub_url_array = url.split("[/ : . - _ # %]");  
@@ -44,6 +46,30 @@ public class URLTest {
 		    System.out.println(sub_url_array[2]);
 	}	
 	
+	
+	/**
+	 * 【Java】利用正则表达式判断是否为网址 
+	 */
+	@Test
+	public void urlRegTest (){
+		String url1 = "http://www.xx.com";  
+        String url2 = "w.xx.com";  
+        String url3 = "http://w.xx.com";  
+        String url4 = "ssss";  
+        String url5 = "w.xx.com"; 
+        String url6 = "https://www.nike.com/t/jordan-aj1-lover-xx-womens-shoe-qG35N2"; 
+        Pattern pattern = Pattern  
+                .compile("^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+$");  
+        System.out.println(pattern.matcher(url1).matches());  
+        System.out.println(pattern.matcher(url2).matches());  
+        System.out.println(pattern.matcher(url3).matches());  
+        System.out.println(pattern.matcher(url4).matches());  
+        System.out.println(pattern.matcher(url5).matches());  
+        System.out.println(pattern.matcher(url6).matches()); 
+	}
+	
+	
+	//站点名称分类
 	{
 		 String url = "https://www.iteye.com/problems/new&dfsdf=aa";	
 		 String [] sub_url_array = url.split("[/ : . - _ # %]");     	   

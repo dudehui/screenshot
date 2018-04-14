@@ -194,7 +194,7 @@ public class ScreenshotController {
         // 2.1 读取 file.txt中的url 放到  线程池、JAV集合中       
            // 根据系统的实际情况选择目录分隔符（windows下是，linux下是/）
         String separator = File.separator;
-        String directory = "url" + separator + "file.txt";//url文件所在的目录
+        String directory = "url" + separator + "data.txt";//url文件所在的目录
         
         Map<String, List<String>> map = FileReadUtil.readFileByLines(directory);        
 //        ArrayList<String> zapposList= (ArrayList<String>) map.get("zappos"); 
