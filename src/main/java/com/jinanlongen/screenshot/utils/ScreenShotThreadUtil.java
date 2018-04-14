@@ -14,13 +14,13 @@ import org.apache.commons.logging.LogFactory;
  * @author dudh
  *
  */
-public class ScreenShotThread implements Runnable{  
+public class ScreenShotThreadUtil implements Runnable{  
 	// 日志
     protected Log log = LogFactory.getLog(this.getClass());
     private List<String> urlList;  
     private String dirpath;
   
-    public ScreenShotThread(List<String> urlList, String dirpath) {  
+    public ScreenShotThreadUtil(List<String> urlList, String dirpath) {  
         this.urlList = urlList;  
         this.dirpath = dirpath;
     }  
@@ -40,7 +40,7 @@ public class ScreenShotThread implements Runnable{
              */           
             Path path = Paths.get(dirpath); 
                //2.1 屏幕截图功能
-    			boolean flag = ScreenShotQueueUtil.doScreenShot(path, url);
+    			boolean flag = Cdp4jUtil.doScreenShot(path, url);
     		    if(flag) {
     		    	log.info(System.currentTimeMillis()+" #######图片截取成功:######  "+url);
     		    }else {
@@ -68,7 +68,7 @@ public class ScreenShotThread implements Runnable{
 		list.add("https://www.zappos.com/p/nike-cotton-cushion-crew-with-moisture-management-3-pair-pack-black-white/product/8068305/color/151");
 		list.add("https://support.mozilla.org/zh-CN/kb/Firefox%20%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8");
 		
-        new Thread(new ScreenShotThread(list, dir)).start();  
+        new Thread(new ScreenShotThreadUtil(list, dir)).start();  
         //new Thread(new ScreenShotThread(list, dir)).start();
 	}
       

@@ -3,7 +3,7 @@ package snapshot.task;
 import java.io.File;
 import java.net.URL;
 
-import com.jinanlongen.screenshot.utils.ScreenShotQueueUtil;
+import com.jinanlongen.screenshot.utils.Cdp4jUtil;
 
 import snapshot.model.Page;
 
@@ -58,7 +58,7 @@ public class SnapshotProcessor extends AbstractTaskProcessor<Page> {
                         //************************ //使用谷歌浏览器截图
                        
                           //2.1 屏幕截图功能
-            			boolean flag = ScreenShotQueueUtil.doScreenShot(dirpath, imageurl, imagename);
+            			boolean flag = Cdp4jUtil.doScreenShot(dirpath, imageurl, imagename);
             		    if(flag) {
             		    	log.info(System.currentTimeMillis()+" #######图片截取成功:######  "+url);
             		    }else {

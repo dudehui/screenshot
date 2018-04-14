@@ -1,4 +1,4 @@
-package com.jinanlongen.screenshot;
+package com.jinanlongen.screenshot.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

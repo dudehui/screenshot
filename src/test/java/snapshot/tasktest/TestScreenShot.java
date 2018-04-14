@@ -4,7 +4,7 @@ import java.util.Timer;
 
 import org.junit.Test;
 
-import com.jinanlongen.screenshot.utils.ScreenShotQueueUtil;
+import com.jinanlongen.screenshot.utils.ScreenShotUtil;
 
 import snapshot.model.Page;
 import snapshot.task.SnapshotProcessorDeamon;
@@ -20,7 +20,7 @@ public class TestScreenShot {
 
     //入队列
     public void setUp() {
-    	String imagename = ScreenShotQueueUtil.getImageName();//图片名,不会重复
+    	String imagename = ScreenShotUtil.getImageName();//图片名,不会重复
         queue = new TaskQueue<Page>();
 //        queue.put(new Page("微软", "https://www.microsoft.com/zh-cn/"));
         //queue.put(new Page("MOP", "http://www.mop.com/"));
@@ -31,7 +31,7 @@ public class TestScreenShot {
         //queue.put(new Page("谷歌", "http://www.google.com/"));
 //        queue.put(new Page("腾讯", "http://www.qq.com/"));
 //        queue.put(new Page("1", "https://www.eastbay.com/product/model:200618/sku:Q18127/adidas-originals-roller-crew-socks-mens/black/grey"));
-        queue.put(new Page("2", "https://www.finishline.com/store/product/womens-puma-popcat-slide-sandals/prod2772299?styleId=36384702&colorId=002"));
+        queue.put(new Page(imagename, "https://www.finishline.com/store/product/womens-puma-popcat-slide-sandals/prod2772299?styleId=36384702&colorId=002"));
 //        queue.put(new Page(imagename, "https://www.zappos.com/p/nike-cotton-cushion-crew-with-moisture-management-3-pair-pack-black-white/product/8068305/color/151"));
     }
 
