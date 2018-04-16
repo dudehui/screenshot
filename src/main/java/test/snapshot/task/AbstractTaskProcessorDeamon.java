@@ -1,4 +1,4 @@
-package snapshot.task;
+package test.snapshot.task;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -1,7 +1,7 @@
-package snapshot.task;
+package test.snapshot.task;
 
-import snapshot.model.Page;
-import snapshot.task.SnapshotProcessor;
+import test.snapshot.model.Page;
+import test.snapshot.task.SnapshotProcessor;
 
 /**
  * 快照守护线程，该线程通过任务队列长度加入或减少快照线程

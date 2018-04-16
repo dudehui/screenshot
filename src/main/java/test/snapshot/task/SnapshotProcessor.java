@@ -1,11 +1,11 @@
-package snapshot.task;
+package test.snapshot.task;
 
 import java.io.File;
 import java.net.URL;
 
 import com.jinanlongen.screenshot.utils.ScreenShotUtil;
 
-import snapshot.model.Page;
+import test.snapshot.model.Page;
 
 /**
  * 截图任务处理
@@ -18,9 +18,9 @@ public class SnapshotProcessor extends AbstractTaskProcessor<Page> {
     // 图片根目录
     private String imageRoot;
     // 图片处理单次等待时间
-    private Long time = 10000L;//10s
+    private Long time = 5 * 1000L;//5s 休眠5秒
     // 图片处理超时时间
-    private Long timeout = 30000L;//30s
+    private Long timeout = 65 * 1000L;//60s
 
     /**
      * 任务处理逻辑 * * @param page * 传入待处理任务对象

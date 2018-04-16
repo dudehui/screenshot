@@ -1,4 +1,4 @@
-package snapshot.model;
+package test.snapshot.model;
 
 /**
  

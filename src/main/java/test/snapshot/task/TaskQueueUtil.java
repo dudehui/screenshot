@@ -1,8 +1,8 @@
-package snapshot.task;
+package test.snapshot.task;
 
 import java.util.Timer;
 
-import snapshot.model.Page;
+import test.snapshot.model.Page;
 
 /** 屏幕截图队列工具类
  * @author Administrator

@@ -1,13 +1,13 @@
-package com.jinanlongen.screenshot.utils;
+package test.thread;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.jinanlongen.screenshot.utils.ScreenShotUtil;
 
 /**
  * 屏幕截图的线程
@@ -57,7 +57,7 @@ public class ScreenShotThreadUtil implements Runnable{
            		log.info("-----------url check result is false, -----URL格式不正确-------:"+isUrlFlag);
            	}
         	 try {  
-                 Thread.sleep(10000); //休眠30毫秒后继续运行 
+                 Thread.sleep(10000); //休眠5 秒后继续运行 
              } catch (InterruptedException e) {  
                  e.printStackTrace();  
              }  

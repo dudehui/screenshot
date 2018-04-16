@@ -6,9 +6,9 @@ import org.junit.Test;
 
 import com.jinanlongen.screenshot.utils.ScreenShotUtil;
 
-import snapshot.model.Page;
-import snapshot.task.SnapshotProcessorDeamon;
-import snapshot.task.TaskQueue;
+import test.snapshot.model.Page;
+import test.snapshot.task.SnapshotProcessorDeamon;
+import test.snapshot.task.TaskQueue;
 /**
  * 队列测试屏幕截图
  * @author Administrator

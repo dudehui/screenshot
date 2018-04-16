@@ -18,7 +18,7 @@ import io.webfolder.cdp.session.SessionFactory;
  */
 public class Cdp4jUtil {
 	
-	public static int WAIT_TIMEOUT = 60 * 1000; // 10 seconds
+	public static int WAIT_TIMEOUT = 90 * 1000; // 90 seconds
 	
 	/**
 	 * 屏幕截图功能

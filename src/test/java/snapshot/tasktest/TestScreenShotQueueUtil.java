@@ -4,9 +4,9 @@ import java.util.Timer;
 
 import org.junit.Test;
 
-import snapshot.model.Page;
-import snapshot.task.SnapshotProcessorDeamon;
-import snapshot.task.TaskQueue;
+import test.snapshot.model.Page;
+import test.snapshot.task.SnapshotProcessorDeamon;
+import test.snapshot.task.TaskQueue;
 //屏幕截图工具类
 public class TestScreenShotQueueUtil {
     public static TaskQueue<Page> queue = new TaskQueue<Page>();//执行队列

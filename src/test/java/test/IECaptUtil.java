@@ -1,4 +1,4 @@
-package com.jinanlongen.screenshot.utils;
+package test;
 /**
  * 
 * <p>Title: IECaptUtil</p>
