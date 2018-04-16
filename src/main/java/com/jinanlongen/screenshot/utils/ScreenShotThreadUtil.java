@@ -29,24 +29,33 @@ public class ScreenShotThreadUtil implements Runnable{
     public void run() {  
     	
     	 // 2.2 依次取出集合对象，循环执行截图功能,截取一次休眠 30 秒
+    	 /**
+         * 参数：dir 磁盘路径  dirpath
+         *      url 连接地址 url
+         *      name name
+         */  
         Iterator<String> it=urlList.iterator();
         while(it.hasNext()){
+        	log.info("------start screenshot："+"----url: "+it.next());
             //System.out.println(it.next());
             //String url = "https://news.ycombinator.com";
         	String url = it.next();        
-        	 /**
-             * 参数：dir 磁盘路径  dirpath
-             *      url 连接地址 url
-             */           
-            Path path = Paths.get(dirpath); 
+        	String name = ScreenShotUtil.getImageName();         
+            String path = dirpath; 
                //2.1 屏幕截图功能
-    			boolean flag = Cdp4jUtil.doScreenShot(path, url);
+            boolean isUrlFlag = ScreenShotUtil.urlCheck(url);
+           	log.info("-----------url check result------------:"+isUrlFlag);
+           	if(isUrlFlag) {
+           		boolean flag = ScreenShotUtil.getCdp4jInstance().doScreenShot(path, url, name);
     		    if(flag) {
-    		    	log.info(System.currentTimeMillis()+" #######图片截取成功:######  "+url);
+    		    	log.info("时间点："+System.currentTimeMillis()+" #######图片截取:"+"success"+" ######  "+url);
     		    }else {
-    		    	log.error(System.currentTimeMillis()+" #######图片截取失败:######  "+url);
+    		    	log.error("时间点："+System.currentTimeMillis()+" #######图片截取:"+"error"+"  ######"+url);
     		    }
-        	 System.out.println(url);
+    		    log.info("------end screenshot："+"----url:"+it.next());
+           	}else {
+           		log.info("-----------url check result is false, -----URL格式不正确-------:"+isUrlFlag);
+           	}
         	 try {  
                  Thread.sleep(10000); //休眠30毫秒后继续运行 
              } catch (InterruptedException e) {  

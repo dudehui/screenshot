@@ -22,9 +22,9 @@ public class FileReadUtil {
     public static Map<String, List<String>> readFileByLines(String fileName) {
     	Map<String, List<String>> rtMap =  new HashMap<>();
     	ArrayList<String> allurlList=new ArrayList<String>();//所有的url
-    	ArrayList<String> zapposList=new ArrayList<String>();
-    	ArrayList<String> eastbayList=new ArrayList<String>();
-    	ArrayList<String> finishlineList=new ArrayList<String>();
+//    	ArrayList<String> zapposList=new ArrayList<String>();
+//    	ArrayList<String> eastbayList=new ArrayList<String>();
+//    	ArrayList<String> finishlineList=new ArrayList<String>();
         File file = new File(fileName);
         BufferedReader reader = null;
         try {
@@ -34,14 +34,9 @@ public class FileReadUtil {
             int line = 1;
             // 一次读入一行，直到读入null为文件结束
             while ((tempString = reader.readLine()) != null) {
-                // 显示行号
-                //System.out.println("line " + line + ": " + tempString);
-            	//判断是否为合法的 http URL 
-            	  Pattern pattern = Pattern  
-                          .compile("^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+$");  
-                boolean flag = pattern.matcher(tempString).matches();
-               if(flag) {
-            	   allurlList.add(tempString);//将url 放入 list
+                //显示行号
+                //System.out.println("line " + line + ": " + tempString);           	
+                allurlList.add(tempString);//将url 放入 list
                    //对 tempString 进行截取字符串，根据site划入不同的 list                	
                    //String [] sub_url_array = tempString.split("[/ : . - _ # %]");     	
                    //sub_url_array = removeArrayEmptyTextBackNewArray(sub_url_array);
@@ -67,10 +62,7 @@ public class FileReadUtil {
 //           					break;
 //           				default:        					
 //           					break;
-//           				}
-               }else {
-            	   //.error("data error: url is not allowed");
-               }
+//           				}               
         	                          
                 line++;
             }
@@ -86,9 +78,9 @@ public class FileReadUtil {
             }
         }
         rtMap.put("allurlList", allurlList);
-        rtMap.put("zappos", zapposList);
-        rtMap.put("eastbay", eastbayList);
-        rtMap.put("finishline", finishlineList);
+//        rtMap.put("zappos", zapposList);
+//        rtMap.put("eastbay", eastbayList);
+//        rtMap.put("finishline", finishlineList);
         return rtMap;
     }
     
@@ -104,31 +96,5 @@ public class FileReadUtil {
         String[] strNewArray = strListNew.toArray(new String[strListNew.size()]);
         return   strNewArray;
     }
-	
-    
-    
-    //@Test
-    public void testReadURLByline() {
-    	 // 根据系统的实际情况选择目录分隔符（windows下是，linux下是/）
-        String separator = File.separator;
-        String directory = "url" + separator + "file.txt";
-        Map<String, List<String>> map = FileReadUtil.readFileByLines(directory);
-        
-        /**
-         * 遍历集合
-         */
-        Iterator<Map.Entry<String, List<String>>> it = map.entrySet().iterator();  
-        while (it.hasNext()) {  
-            Map.Entry<String, List<String>> entry = it.next();  
-            System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());  
-        }
-              
-        
-        /*ArrayList<String> zapposList= (ArrayList<String>) map.get("zappos");
-        //System.out.println("zapposList"+zapposList);
-        Iterator<String> it2=zapposList.iterator();
-        while(it2.hasNext()){
-            System.out.println(it2.next());
-        }*/
-    }
+	    
 }

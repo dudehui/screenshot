@@ -8,3 +8,5 @@
 
 
 SELECT SUBSTRING_INDEX(url, ',', -1)AS url FROM merchandise_source_urls
+
+

@@ -1,11 +1,10 @@
 package snapshot.task;
 
-import java.util.Random;
 import java.util.Timer;
 
 import snapshot.model.Page;
 
-/**屏幕截图队列工具类
+/** 屏幕截图队列工具类
  * @author Administrator
  *
  */
