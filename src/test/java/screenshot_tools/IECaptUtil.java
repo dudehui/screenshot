@@ -1,4 +1,4 @@
-package test;
+package screenshot_tools;
 /**
  * 
 * <p>Title: IECaptUtil</p>

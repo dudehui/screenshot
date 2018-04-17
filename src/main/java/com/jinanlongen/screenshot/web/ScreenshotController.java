@@ -1,6 +1,7 @@
 package com.jinanlongen.screenshot.web;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +26,19 @@ public class ScreenshotController {
 	
 	// 日志
     protected Log log = LogFactory.getLog(this.getClass());
-	 
+    
+    @Value("${google.exepath}")  
+    private String exepath;//谷歌浏览器的执行路径  
+    
+    @Value("${data.filepath}")  
+    private String filepath;//文件路径
+    
+    @Value("${data.filename}")  
+    private String filenme;//文件名
+    
+    @Value("${pic.dir}")  
+    private String picDir;//文件存放目录
+         
     /**JAVA，测试 cd4j 屏幕截图，一张图片
      * 测试网址：
      * http://www.mop.com/
@@ -38,7 +52,8 @@ public class ScreenshotController {
         System.out.println("开始时间：" + start);   
         //-------------按照日期来创建dir
         //String rootDir = request.getServletContext().getRealPath("/");//获取项目所在服务器的全路径
-        String rootDir = "pic_screenshot";//服务器同级目录下的XXX
+//        String rootDir = "pic_screenshot";//服务器同级目录下的XXX
+        String rootDir = picDir;//图片存放在服务器同级目录下的picDir
         //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dirname = sdf.format(new Date());//文件名使用 日期
@@ -56,7 +71,7 @@ public class ScreenshotController {
         //Path path = Paths.get("c:\\snapshot1");//磁盘位置 String dir = "c:/snapshot1/";
         
 		String name = System.currentTimeMillis()+"";//图片名成按照：时间戳命名
-				String url = "https://news.ycombinator.com";
+			   String url = "https://news.ycombinator.com";
 //    	String url = "https://www.eastbay.com/product/model:200618/sku:Q18127/adidas-originals-roller-crew-socks-mens/black/grey";
        	String path = dirpath;	
 		// 2.1 屏幕截图功能
@@ -81,15 +96,17 @@ public class ScreenshotController {
      * 读取 data.txt 中的url并截图
 	   ######################################测试：http://localhost:8081/test	   
      * @return
+     * @throws FileNotFoundException 
      */
     @RequestMapping("/doScreenshots")
     @ResponseBody
-    public String testScreenshots(HttpServletRequest request) {
+    public String testScreenshots(HttpServletRequest request) throws FileNotFoundException {
     	long start = System.currentTimeMillis();
         System.out.println("开始时间：" + start);  
         //-------1.0------按照日期来创建dir
         //String rootDir = request.getServletContext().getRealPath("/");//获取项目所在服务器的全路径
-        String rootDir = "pic_screenshot";//服务器同级目录下的XXX
+//        String rootDir = "pic_screenshot";//服务器同级目录下的XXX
+        String rootDir = picDir;//图片存放在服务器同级目录下的picDir
         //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dirname = sdf.format(new Date());//磁盘文件名使用 日期
@@ -110,9 +127,14 @@ public class ScreenshotController {
         // 2.1 读取 file.txt中的url 放到  线程池、JAV集合中       
            // 根据系统的实际情况选择目录分隔符（windows下是，linux下是/）
         String separator = File.separator;
-        String directory = "url" + separator + "data.txt";//url文件所在的目录
+//        String directory = "url" + separator + "file.txt";//url文件所在的目录
+        String directory = filepath + separator + filenme;//url文件所在的目录，项目同一级目录  
+        Map<String, List<String>> map = FileReadUtil.readFileByLines(directory);
+       /*  
+        File datafile = ResourceUtils.getFile("classpath:dataFile"+separator+"file.txt");
+        Map<String, List<String>> map = FileReadUtil.readFileByLines(datafile);*/
         
-        Map<String, List<String>> map = FileReadUtil.readFileByLines(directory);        
+        
 //        ArrayList<String> zapposList= (ArrayList<String>) map.get("zappos"); 
 //        ArrayList<String> finishlineList= (ArrayList<String>) map.get("finishline"); 
 //        ArrayList<String> eastbayList= (ArrayList<String>) map.get("eastbay"); 
@@ -120,7 +142,8 @@ public class ScreenshotController {
         ArrayList<String> allList= (ArrayList<String>) map.get("allurlList"); 
         
         // 2.2 依次取出集合对象，循环执行截图功能, 截取一个 30秒          
-    
+//		String exepath = "/usr/bin/google-chrome-stable";
+//		String exepath = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
         /**
          * 参数： dir		 磁盘存放路径   dirpath
          *       url 	 超链接URL地址  url
@@ -128,23 +151,22 @@ public class ScreenshotController {
          */   
         Iterator<String> it=allList.iterator();
         while(it.hasNext()){
-        	log.info("------start screenshot："+"----url: "+it.next());
-            //System.out.println(it.next());
-            //String url = "https://news.ycombinator.com";
         	String url = it.next();
+        	log.info("------start screenshot："+"----url: "+url);        
         	String name = ScreenShotUtil.getImageName();        	         
             String path = dirpath; 
               // 2.1 屏幕截图功能
         	boolean isUrlFlag = ScreenShotUtil.urlCheck(url);
-           	log.info("-----------url check result------------:"+isUrlFlag);
+           	log.info("-----------url check result------isUrlFlag------:"+isUrlFlag);
            	if(isUrlFlag) {
-           		boolean flag = ScreenShotUtil.getCdp4jInstance().doScreenShot(path, url, name);
+           		boolean flag = ScreenShotUtil.getCdp4jInstance().doScreenShotHeadLess(path, url, name, exepath);
     		    if(flag) {
-    		    	log.info("时间点："+System.currentTimeMillis()+" #######图片截取:"+"success"+" ######  "+url);
+    		    	log.info("file: "+ path+ " name:  "+name);
+    		    	log.info("时间点："+System.currentTimeMillis()+" #######图片截取:"+"success"+" ###### url: "+url);
     		    }else {
-    		    	log.error("时间点："+System.currentTimeMillis()+" #######图片截取:"+"error"+"  ######"+url);
+    		    	log.error("时间点："+System.currentTimeMillis()+" #######图片截取:"+"error"+"  ###### url: "+url);
     		    }
-    		    log.info("------end screenshot："+"----url:"+it.next());
+    		    log.info("------end screenshot："+"----url:"+url);
            	}else {
            		log.info("-----------url check result is false, -----URL格式不正确-------:"+isUrlFlag);
            	}

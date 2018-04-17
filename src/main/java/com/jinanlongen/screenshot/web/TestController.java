@@ -1,4 +1,4 @@
-package test.web;
+package com.jinanlongen.screenshot.web;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,18 +25,24 @@ import test.snapshot.task.TaskQueueUtil;
 import test.thread.ScreenShotThreadUtil;
 
 @RestController
-public class ScreenshotTestController {
+public class TestController {
 	
 	// 日志
     protected Log log = LogFactory.getLog(this.getClass());
+    
+    //@Value("${hello}")  
+    private String hello;  
+      
+    //@Value("${class.schoolName}")  
+    private String schoolName;  
 	
     /**
      * http://localhost:8081/
      * @return
      */
-    @RequestMapping("/")
+    @RequestMapping("/index")
     public String index() {
-        return "Greetings from Spring Boot!";
+        return "index";
     }
     
     /**
@@ -45,6 +52,17 @@ public class ScreenshotTestController {
     @RequestMapping("/hello")
     public String hello() {
         return "Hello world";
+    }
+    
+    /**
+     * http://localhost:8081/hello
+     * @return
+     */
+    @RequestMapping("/testproperties")
+    public String testproperties() {
+    	
+    	
+        return "testproperties: <br> "+hello+"--"+schoolName;
     }
     
     @RequestMapping("/testpath")
