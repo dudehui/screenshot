@@ -4,7 +4,11 @@
 java -jar screenshot-0.0.1-SNAPSHOT.jar
 
 
-http://localhostlocalhost:9081/test             ----测试一个URL截取一张图片
-http://localhost:9081/testpath  ---输出路径
-http://localhostlocalhost:9081/testByfile       ----使用线程处理
-http://localhostlocalhost:9081/testByqueue      ----使用队列+线程处理
+1:测试一张图片
+	http://localhost:9081/testScreenshot  ---cdp4j测试一张图片
+  测试n个url
+        http://localhost:9081/doScreenshots
+
+  
+总共 1557 条记录
+  60s----等待时间 

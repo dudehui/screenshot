@@ -1,4 +1,4 @@
-package com.jinanlongen.screenshot.web;
+package test.web;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +22,7 @@ import com.jinanlongen.screenshot.utils.ScreenShotUtil;
 
 import test.snapshot.task.TaskQueueUtil;
 import test.thread.ScreenShotThreadUtil;
+
 
 @RestController
 public class TestController {
